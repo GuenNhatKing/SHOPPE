@@ -18,8 +18,9 @@ namespace Model.EfStructures
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            string path = "AppSettings.json";
-            var appsetting = AppSettings.ReadAsJsonFormat(path);
+            string? projectRoot = Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            string settingsPath = projectRoot + "\\Model\\Settings\\AppSettings.json";
+            var appsetting = AppSettings.ReadAsJsonFormat(settingsPath);
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var connectString = appsetting.ConnectionStrings;
             optionsBuilder.UseSqlServer(connectString);
