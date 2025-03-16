@@ -10,45 +10,21 @@
         <CollectionViewSource x:Key="TTTaiKhoan" 
                           Source="{Binding DSTaiKhoan}" />
     </Window.Resources>
-    <Grid Background="#FFD16969">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TreeView>
-            <TreeViewItem Header="Employee 1">
-                <TreeViewItem Header="Testarossa"/>
-                <TreeViewItem Header="Blanc"/>
-                <TreeViewItem Header="2022"/>
-            </TreeViewItem>
-            <TreeViewItem Header="Employee 2">
-                <TreeViewItem Header="Carrera"/>
-                <TreeViewItem Header="June"/>
-                <TreeViewItem Header="2022"/>
-            </TreeViewItem>
-        </TreeView>
-        <ListView Grid.Column="1" ItemsSource="{Binding Source={StaticResource TTTaiKhoan}}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="IdNguoiDung"
-                                    DisplayMemberBinding="{Binding IdNguoiDung}"/>
-                    <GridViewColumn Header="Username"
-                                    DisplayMemberBinding="{Binding Username}"/>
-                    <GridViewColumn Header="Password"
-                                    DisplayMemberBinding="{Binding Password}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView Grid.Column="1" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <Grid>
+        <StackPanel>
+            <Label>Bảng TaiKhoan(Nếu kết nối với CSDL thành công thì sẽ có dữ liệu)</Label>
+            <ListView ItemsSource="{Binding Source={StaticResource TTTaiKhoan}}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="IdNguoiDung"
+                            DisplayMemberBinding="{Binding IdNguoiDung}"/>
+                        <GridViewColumn Header="Username"
+                            DisplayMemberBinding="{Binding Username}"/>
+                        <GridViewColumn Header="Password"
+                            DisplayMemberBinding="{Binding Password}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Window>
