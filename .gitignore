@@ -404,6 +404,7 @@ FodyWeavers.xsd
 bin/
 obj/
 TestResults/
+AppSettings.json
 
 # Nuget
 packages/
