@@ -8,3 +8,6 @@ Tạo 1 file AppSettings.json ở trong \Model\Settings với nội dung:
 }
 ```
 Để kết nối với CSDL nhá!!!
+À nhớ cài thư viện trước khi chạy nhá: 
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.SqlServer
