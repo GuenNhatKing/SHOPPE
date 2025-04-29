@@ -235,7 +235,7 @@ namespace ShoppeWebApp.Migrations
                     b.Property<string>("DiaChi")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("varchar(1000)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -254,6 +254,9 @@ namespace ShoppeWebApp.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("SDT");
+
+                    b.Property<decimal>("SoDu")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime?>("ThoiGianTao")
                         .HasColumnType("datetime");

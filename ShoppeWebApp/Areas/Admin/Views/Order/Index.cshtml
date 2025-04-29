@@ -1,0 +1,122 @@
+@model IEnumerable<ShoppeWebApp.ViewModels.Admin.OrderViewModel>
+
+@{
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Quản lý hóa đơn";
+}
+
+<div class="container mt-4">
+    <div class="p-5 border border-success rounded" style="background-color: #fdfdfd; min-height: 80vh;">
+        <!-- Tiêu đề -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-white p-3" style="background-color: #28a745; border-radius: 10px;">
+                Quản lý hóa đơn
+            </h2>
+        </div>
+
+        <!-- Form tìm kiếm -->
+        <form method="get" asp-area="Admin" asp-controller="Order" asp-action="Index" class="mb-4">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label fw-bold">Tìm kiếm</label>
+                    <input type="text" name="searchQuery" class="form-control" placeholder="Tìm kiếm theo ID đơn hàng hoặc ID liên hệ..." />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i> Tìm kiếm
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-secondary w-100">
+                        <i class="fas fa-undo me-1"></i> Xóa bộ lọc
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        <!-- Danh sách hóa đơn -->
+        <table class="table table-bordered table-hover">
+            <thead class="table-success">
+                <tr class="text-center">
+                    <th>ID Đơn Hàng</th>
+                    <th>ID Liên Hệ</th>
+                    <th>Thời Gian Tạo</th>
+                    <th>Thời Gian Giao</th>
+                    <th>Tổng Tiền</th>
+                    <th>Trạng Thái</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var order in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@order.IdDonHang</td>
+                            <td>@order.IdLienHe</td>
+                            <td>@order.ThoiGianTao.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                @(order.ThoiGianGiao.HasValue ? order.ThoiGianGiao.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa giao")
+                            </td>
+                            <td>@string.Format("{0:#,##0} ₫", order.TongTien)</td>
+                            <td>
+                                @switch (order.TrangThai)
+                                {
+                                    case 1: <span class="badge bg-warning">Chờ xác nhận</span>; break;
+                                    case 2: <span class="badge bg-success">Đã xác nhận</span>; break;
+                                    case 0: <span class="badge bg-danger">Đã hủy</span>; break;
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@order.IdDonHang" class="btn btn-dark btn-sm me-1">
+                                    <i class="fas fa-info-circle"></i> Chi tiết
+                                </a>
+                                <a asp-action="Cancel" asp-route-id="@order.IdDonHang" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-times-circle"></i> Hủy
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center">Không có hóa đơn nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Phân trang -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    @{
+                        int currentPage = Convert.ToInt32(ViewData["CurrentPage"]);
+                        int totalPages = Convert.ToInt32(ViewData["TotalPages"]);
+                    }
+
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="?page=1">Đầu</a>
+                    </li>
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="?page=@(currentPage - 1)">Trước</a>
+                    </li>
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(currentPage == i ? "active" : "")">
+                            <a class="page-link" href="?page=@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="?page=@(currentPage + 1)">Tiếp</a>
+                    </li>
+                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="?page=@totalPages">Cuối</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

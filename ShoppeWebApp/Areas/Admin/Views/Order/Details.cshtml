@@ -1,0 +1,54 @@
+@model ShoppeWebApp.ViewModels.Admin.OrderViewModel
+
+@{
+    Layout = "~/Areas/Admin/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Chi tiết hóa đơn";
+}
+
+<div class="container mt-5">
+    <!-- Tiêu đề -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-white p-3" style="background-color: #28a745; border-radius: 10px;">
+            Chi tiết hóa đơn
+        </h2>
+    </div>
+
+    <!-- Thông tin hóa đơn -->
+    <div class="p-4 border border-success rounded" style="background-color: #fdfdfd;">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">ID Đơn Hàng</label>
+                <input type="text" class="form-control" value="@Model.IdDonHang" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">ID Liên Hệ</label>
+                <input type="text" class="form-control" value="@Model.IdLienHe" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Thời Gian Tạo</label>
+                <input type="text" class="form-control" value="@Model.ThoiGianTao.ToString("dd/MM/yyyy HH:mm")" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Thời Gian Giao</label>
+                <input type="text" class="form-control" value="@(Model.ThoiGianGiao.HasValue ? Model.ThoiGianGiao.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa giao")" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Tổng Tiền</label>
+            <input type="text" class="form-control" value="@string.Format("{0:#,##0} ₫", Model.TongTien)" readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Trạng Thái</label>
+            <input type="text" class="form-control" 
+                value="@(Model.TrangThai == 1 ? "Chờ xác nhận" : Model.TrangThai == 2 ? "Đã xác nhận" : "Đã hủy")" 
+                readonly style="background-color: #e9ecef; cursor: not-allowed;" />        
+        </div>
+    </div>
+
+    <!-- Nút quay lại -->
+    <div class="text-end mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</div>

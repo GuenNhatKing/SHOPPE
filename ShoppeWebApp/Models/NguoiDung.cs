@@ -55,4 +55,7 @@ public partial class NguoiDung
 
     [InverseProperty("IdNguoiDungNavigation")]
     public virtual ICollection<ThongTinLienHe> ThongTinLienHes { get; set; } = new List<ThongTinLienHe>();
+
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal SoDu { get; set; } = 0;
 }
